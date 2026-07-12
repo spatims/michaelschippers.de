@@ -1,0 +1,989 @@
+<title>Prüfen mit KI — Fortbildungen für Schulen | Michael Schippers</title>
+<meta name="description" content="Fortbildungen zu Prüfen und Bewerten mit KI für niedersächsische Schulen. Praxisreferent, unterrichtet selbst. Prüfungskultur-Audit mit Beschlussvorlage für die Gesamtkonferenz.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --color-bg: #faf8f5;
+    --color-bg-alt: #f1ede6;
+    --color-ink: #20272a;
+    --color-ink-soft: #4b5559;
+    --color-line: #ddd6ca;
+    --color-accent: #17494a;
+    --color-accent-soft: #e4ede9;
+    --color-highlight: #c4592f;
+    --color-card-bg: #ffffff;
+    --font-serif: "Newsreader", Georgia, "Times New Roman", serif;
+    --font-sans: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --radius: 10px;
+    --max-width: 1080px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img { max-width: 100%; }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 0 0 0.6em 0;
+    color: var(--color-ink);
+  }
+
+  h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 500; }
+  h2 { font-size: clamp(1.5rem, 3.4vw, 2.1rem); }
+  h3 { font-size: 1.25rem; }
+
+  p { margin: 0 0 1em 0; }
+
+  a { color: var(--color-accent); }
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  section { padding: 4rem 0; border-bottom: 1px solid var(--color-line); }
+  section:last-of-type { border-bottom: none; }
+
+  .section-alt { background: var(--color-bg-alt); }
+
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .lede {
+    font-size: 1.1rem;
+    color: var(--color-ink-soft);
+    max-width: 46em;
+  }
+
+  /* Header / Nav */
+  header.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(250, 248, 245, 0.92);
+    backdrop-filter: saturate(140%) blur(6px);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .nav-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0.9rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .brand {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  nav.primary-nav {
+    display: none;
+  }
+
+  nav.primary-nav a {
+    color: var(--color-ink-soft);
+    text-decoration: none;
+    font-size: 0.95rem;
+    margin-left: 1.6rem;
+  }
+
+  nav.primary-nav a:hover { color: var(--color-accent); }
+
+  @media (min-width: 780px) {
+    nav.primary-nav { display: block; }
+  }
+
+  .btn {
+    display: inline-block;
+    background: var(--color-accent);
+    color: #fff;
+    text-decoration: none;
+    padding: 0.7rem 1.4rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .btn:hover { background: #103838; }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--color-accent);
+    border: 1.5px solid var(--color-accent);
+  }
+
+  .btn-secondary:hover { background: var(--color-accent-soft); }
+
+  .btn-small { padding: 0.5rem 1rem; font-size: 0.88rem; }
+
+  /* Hero */
+  .hero {
+    padding: 4.5rem 0 3.5rem 0;
+  }
+
+  .hero h1 { max-width: 18em; }
+
+  .hero .subline {
+    font-size: 1.2rem;
+    color: var(--color-ink-soft);
+    max-width: 40em;
+    margin-bottom: 1.1rem;
+  }
+
+  .hero .subline-2 {
+    font-size: 1.05rem;
+    color: var(--color-ink-soft);
+    max-width: 38em;
+    margin-bottom: 2rem;
+  }
+
+  .hero .cta-row { display: flex; flex-wrap: wrap; gap: 0.9rem; align-items: center; }
+
+  .hero .cta-note { font-size: 0.9rem; color: var(--color-ink-soft); }
+
+  /* Cards grid: Formate */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  @media (min-width: 700px) {
+    .cards-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .format-card {
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    padding: 1.6rem 1.6rem 1.4rem 1.6rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .format-card.is-core {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 1px var(--color-accent);
+  }
+
+  .format-card .tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    margin-bottom: 0.9rem;
+    width: fit-content;
+  }
+
+  .tag-core { background: var(--color-accent); color: #fff; }
+  .tag-premium { background: var(--color-highlight); color: #fff; }
+  .tag-basic { background: var(--color-accent-soft); color: var(--color-accent); }
+
+  .format-card h3 { margin-bottom: 0.4rem; }
+
+  .format-card .format-meta {
+    font-size: 0.9rem;
+    color: var(--color-ink-soft);
+    margin-bottom: 0.9rem;
+  }
+
+  .format-card p.desc { flex-grow: 1; color: var(--color-ink-soft); }
+
+  .format-card .price-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-top: 1px solid var(--color-line);
+    padding-top: 0.9rem;
+    margin-top: 0.5rem;
+  }
+
+  .price-row .price { font-family: var(--font-serif); font-size: 1.3rem; color: var(--color-ink); }
+  .price-row .avail { font-size: 0.82rem; color: var(--color-ink-soft); text-align: right; max-width: 12em; }
+
+  /* Audit steps */
+  .steps {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    counter-reset: step;
+    margin-top: 2rem;
+  }
+
+  @media (min-width: 700px) {
+    .steps { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .step {
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+  }
+
+  .step .step-num {
+    counter-increment: step;
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .step .step-num::before { content: counter(step); }
+
+  .step h4 { font-family: var(--font-sans); font-weight: 700; font-size: 1rem; margin-bottom: 0.4rem; }
+  .step p { color: var(--color-ink-soft); font-size: 0.95rem; margin: 0; }
+
+  /* Comparison table */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    background: var(--color-card-bg);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .table-scroll { overflow-x: auto; }
+
+  .compare-table th, .compare-table td {
+    text-align: left;
+    padding: 0.9rem 1.1rem;
+    border-bottom: 1px solid var(--color-line);
+    font-size: 0.95rem;
+    vertical-align: top;
+  }
+
+  .compare-table th {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    background: var(--color-bg-alt);
+  }
+
+  .compare-table tr:last-child td { border-bottom: none; }
+
+  .recommend-box {
+    background: var(--color-accent-soft);
+    border-left: 4px solid var(--color-accent);
+    padding: 1.1rem 1.4rem;
+    border-radius: 4px;
+    margin-top: 1.5rem;
+    font-size: 0.98rem;
+  }
+
+  /* Termine table */
+  .dates-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    background: var(--color-card-bg);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .dates-table th, .dates-table td {
+    text-align: left;
+    padding: 0.85rem 1.1rem;
+    border-bottom: 1px solid var(--color-line);
+    font-size: 0.95rem;
+  }
+
+  .dates-table th { background: var(--color-bg-alt); font-weight: 700; }
+
+  .status-pill {
+    display: inline-block;
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+  }
+
+  .placeholder-note {
+    background: #fbeee6;
+    border: 1px dashed var(--color-highlight);
+    border-radius: 8px;
+    padding: 0.9rem 1.1rem;
+    font-size: 0.9rem;
+    color: #7a3011;
+    margin-top: 1rem;
+  }
+
+  /* About */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: start;
+    margin-top: 1.5rem;
+  }
+
+  @media (min-width: 780px) {
+    .about-grid { grid-template-columns: 1.4fr 1fr; }
+  }
+
+  .footnote {
+    font-size: 0.85rem;
+    color: var(--color-ink-soft);
+    border-top: 1px solid var(--color-line);
+    padding-top: 0.9rem;
+    margin-top: 1.3rem;
+  }
+
+  .about-facts {
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+  }
+
+  .about-facts ul { margin: 0; padding-left: 1.2rem; }
+  .about-facts li { margin-bottom: 0.5rem; color: var(--color-ink-soft); }
+
+  /* Booking */
+  .booking-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  @media (min-width: 700px) {
+    .booking-grid { grid-template-columns: repeat(3, 1fr) ; }
+  }
+
+  .slot-card {
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    padding: 1.3rem;
+    text-align: center;
+  }
+
+  .slot-card .day { font-family: var(--font-serif); font-size: 1.2rem; }
+  .slot-card .time { color: var(--color-ink-soft); font-size: 0.95rem; }
+
+  .callback-box {
+    margin-top: 1.8rem;
+    background: var(--color-bg-alt);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.4rem;
+    font-size: 0.95rem;
+  }
+
+  /* Freebie */
+  .freebie-box {
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: 1.5rem;
+  }
+
+  @media (min-width: 700px) {
+    .freebie-box { grid-template-columns: 1.3fr 1fr; }
+  }
+
+  .freebie-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .freebie-box input[type="email"] {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--color-line);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+  }
+
+  .freebie-box .form-hint { font-size: 0.82rem; color: var(--color-ink-soft); }
+
+  /* Price argument */
+  .price-argument {
+    background: var(--color-accent);
+    color: #f3f0ea;
+  }
+
+  .price-argument .lede { color: #d9e5e2; }
+  .price-argument h2 { color: #fff; }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin-top: 2rem;
+  }
+
+  @media (min-width: 700px) {
+    .stat-row { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .stat-box {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: var(--radius);
+    padding: 1.3rem;
+  }
+
+  .stat-box .stat-num { font-family: var(--font-serif); font-size: 2rem; }
+  .stat-box .stat-label { font-size: 0.9rem; color: #cfe0dc; }
+
+  /* FAQ */
+  .faq-item {
+    border-bottom: 1px solid var(--color-line);
+    padding: 1.2rem 0;
+  }
+
+  .faq-item summary {
+    cursor: pointer;
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 500;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .faq-item summary::-webkit-details-marker { display: none; }
+
+  .faq-item summary::after {
+    content: "+";
+    font-family: var(--font-sans);
+    font-size: 1.4rem;
+    color: var(--color-accent);
+    flex-shrink: 0;
+  }
+
+  .faq-item[open] summary::after { content: "–"; }
+
+  .faq-item .faq-answer {
+    color: var(--color-ink-soft);
+    margin-top: 0.8rem;
+    max-width: 42em;
+  }
+
+  /* Privacy note */
+  .privacy-box {
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.7rem;
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .privacy-box ul { padding-left: 1.2rem; color: var(--color-ink-soft); }
+  .privacy-box li { margin-bottom: 0.5rem; }
+
+  /* Footer */
+  footer.site-footer {
+    background: var(--color-ink);
+    color: #d8dedd;
+    padding: 3rem 0 2rem 0;
+  }
+
+  footer.site-footer a { color: #d8dedd; }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 700px) {
+    .footer-grid { grid-template-columns: 2fr 1fr 1fr; }
+  }
+
+  .footer-brand { font-family: var(--font-serif); font-size: 1.2rem; color: #fff; margin-bottom: 0.4rem; }
+  .footer-links { display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.92rem; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.15);
+    margin-top: 2rem;
+    padding-top: 1.2rem;
+    font-size: 0.85rem;
+    color: #a9b3b1;
+  }
+
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-bg: #171b1c;
+      --color-bg-alt: #1e2426;
+      --color-ink: #eceae5;
+      --color-ink-soft: #b6bcbb;
+      --color-line: #34393a;
+      --color-accent: #6fb8ab;
+      --color-accent-soft: #223230;
+      --color-highlight: #e08159;
+      --color-card-bg: #1f2527;
+    }
+    header.site-header { background: rgba(23, 27, 28, 0.92); }
+    .btn { color: #0e1414; }
+    .placeholder-note { background: #2c1c14; color: #f0b79a; }
+    .price-argument { background: #10302f; }
+  }
+
+  :root[data-theme="dark"] {
+    --color-bg: #171b1c;
+    --color-bg-alt: #1e2426;
+    --color-ink: #eceae5;
+    --color-ink-soft: #b6bcbb;
+    --color-line: #34393a;
+    --color-accent: #6fb8ab;
+    --color-accent-soft: #223230;
+    --color-highlight: #e08159;
+    --color-card-bg: #1f2527;
+  }
+
+  :root[data-theme="light"] {
+    --color-bg: #faf8f5;
+    --color-bg-alt: #f1ede6;
+    --color-ink: #20272a;
+    --color-ink-soft: #4b5559;
+    --color-line: #ddd6ca;
+    --color-accent: #17494a;
+    --color-accent-soft: #e4ede9;
+    --color-highlight: #c4592f;
+    --color-card-bg: #ffffff;
+  }
+</style>
+
+<header class="site-header">
+  <div class="nav-inner">
+    <a class="brand" href="#top">Michael Schippers</a>
+    <nav class="primary-nav">
+      <a href="#formate">Formate</a>
+      <a href="#audit">Das Audit</a>
+      <a href="#termine">Termine</a>
+      <a href="#ueber-mich">Über mich</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn-small" href="#buchen">Erstgespräch buchen</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="eyebrow">Fortbildung für Schulen in Niedersachsen</div>
+      <h1>Prüfen und Bewerten, wenn KI mitschreibt</h1>
+      <p class="subline">Fortbildung von einem, der morgen wieder selbst vor der Klasse steht: erprobt im niedersächsischen Klassenzimmer, orientiert am KI-Kompetenzraster des NLQ, telli-konkret.</p>
+      <p class="subline-2">Kein Vortrag zum Zuhören — ein Verfahren, das mit einer Beschlussvorlage für Ihre Gesamtkonferenz endet.</p>
+      <div class="cta-row">
+        <a class="btn" href="#buchen">Erstgespräch buchen</a>
+        <a class="btn btn-secondary" href="#formate">Formate &amp; Preise ansehen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMATE -->
+  <section id="formate" class="section-alt">
+    <div class="container">
+      <div class="eyebrow">Formate</div>
+      <h2>Vier Formate, zwei Buchungsanlässe</h2>
+      <p class="lede">KI-Dringlichkeit und Korrektur-/Arbeitsentlastung. Alle Preise sind Listenpreise ab Tag&nbsp;1 — es gibt kein verstecktes Rabattniveau.</p>
+
+      <div class="cards-grid">
+        <div class="format-card">
+          <span class="tag tag-basic">Format A1</span>
+          <h3>Prüfen, wenn KI mitschreibt</h3>
+          <div class="format-meta">Mikro-SchiLf / Dienstbesprechung · 90 Min.–3 Std. · nachmittags, online oder Präsenz</div>
+          <p class="desc">Der Einstieg für Kollegium oder Fachgruppe: Wie verändert KI Aufgabenstellung, Durchführung und Bewertung?</p>
+          <div class="price-row">
+            <span class="price">ab 300 €</span>
+            <span class="avail">max. 2 Termine/Monat</span>
+          </div>
+        </div>
+
+        <div class="format-card">
+          <span class="tag tag-basic">Format A2</span>
+          <h3>Bewerten &amp; Feedback mit KI: rechtssicher Zeit sparen</h3>
+          <div class="format-meta">Mikro-SchiLf / Dienstbesprechung · 90 Min.–3 Std. · nachmittags</div>
+          <p class="desc">Für Kollegien, denen es zuerst um Korrekturzeit geht, nicht um KI an sich. Zweiter, hype-unabhängiger Buchungsanlass.</p>
+          <div class="price-row">
+            <span class="price">ab 300 €</span>
+            <span class="avail">zählt ins A-Limit</span>
+          </div>
+        </div>
+
+        <div class="format-card is-core">
+          <span class="tag tag-core">Kern-Empfehlung</span>
+          <h3>Prüfungskultur-Audit kompakt</h3>
+          <div class="format-meta">Format B-online · Halbtag (nachmittags) + 2× 90 Min. online + Umsetzungscheck</div>
+          <p class="desc">Das vollständige Audit-Verfahren, ohne einen ganzen Tag zu blockieren. Umgeht das Terminproblem des Ganztags vollständig.</p>
+          <div class="price-row">
+            <span class="price">ab 900 €</span>
+            <span class="avail">max. 1 Termin/Monat</span>
+          </div>
+        </div>
+
+        <div class="format-card">
+          <span class="tag tag-premium">Knappes Premiumgut</span>
+          <h3>Pädagogischer Tag „Prüfungskultur-Audit"</h3>
+          <div class="format-meta">Format B-Präsenz · ganztägig, inkl. 60-Min-Online-Follow-up nach 6 Wochen</div>
+          <p class="desc">Der volle Tag vor Ort. Nur an wenigen, konkret gelisteten Terminen im Schuljahr verfügbar — Warteliste empfohlen.</p>
+          <div class="price-row">
+            <span class="price">ab 1.200 € + Fahrt</span>
+            <span class="avail">nur an gelisteten Terminen, Warteliste</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUDIT -->
+  <section id="audit">
+    <div class="container">
+      <div class="eyebrow">Das Verfahren</div>
+      <h2>Das Prüfungskultur-Audit</h2>
+      <p class="lede">Warum ein Honorar zahlen, wenn mpB und NLQ kostenlos kommen? Weil das Audit ein definiertes Verfahren mit Ergebnis-Artefakt ist — die Schule kauft keinen Vortrag, sondern eine Beschlussvorlage.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num"></div>
+          <h4>Vorab-Kurzbefragung</h4>
+          <p>Kurzbefragung des Kollegiums, rund 10 Minuten online: Ist-Stand der Prüfungspraxis und der KI-Nutzung an Ihrer Schule.</p>
+        </div>
+        <div class="step">
+          <div class="step-num"></div>
+          <h4>Termin</h4>
+          <p>Fortbildung vor Ort oder online, plus konkrete Arbeit an den eigenen Leistungsbewertungs-Beschlüssen Ihrer Schule.</p>
+        </div>
+        <div class="step">
+          <div class="step-num"></div>
+          <h4>Beschlussvorlage für die Gesamtkonferenz</h4>
+          <p>Das Ergebnis-Artefakt: eine konkrete Anpassung der schuleigenen Bewertungsgrundsätze, gremientauglich aufbereitet.</p>
+        </div>
+        <div class="step">
+          <div class="step-num"></div>
+          <h4>Umsetzungscheck nach 6 Wochen</h4>
+          <p>Kurzer Online-Termin: Was ist angekommen, wo hakt es in der Praxis.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GEGENÜBERSTELLUNG -->
+  <section class="section-alt">
+    <div class="container">
+      <div class="eyebrow">Einordnung</div>
+      <h2>Was das Land kostenlos liefert — was das Audit zusätzlich liefert</h2>
+      <p class="lede">Für den ersten Tool- und Basiseinstieg sind die Angebote von Medienberatung Niedersachsen (mpB) und den kommunalen Medienzentren die richtige und kostenlose Anlaufstelle — nutzen Sie diese zuerst. Das Prüfungskultur-Audit setzt eine Stufe darüber an, dort, wo es um die eigenen Bewertungs-Beschlüsse Ihrer Schule geht.</p>
+
+      <div class="table-scroll">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Was das Land kostenlos liefert</th>
+              <th>Was das Audit zusätzlich liefert</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Allgemeine KI-Basisschulungen (mpB, Medienzentren, Digitallabore)</td>
+              <td>Fokus ausschließlich auf Prüfungs- und Bewertungspraxis</td>
+            </tr>
+            <tr>
+              <td>Tool-Einstieg und technische Einweisung</td>
+              <td>Arbeit an den konkreten, eigenen Leistungsbewertungs-Beschlüssen Ihrer Schule</td>
+            </tr>
+            <tr>
+              <td>Allgemeine Impulsvorträge</td>
+              <td>Vorab-Kurzbefragung des eigenen Kollegiums als Ausgangspunkt</td>
+            </tr>
+            <tr>
+              <td>Einmaliger Termin ohne Ergebnisdokument</td>
+              <td>Beschlussvorlage für die Gesamtkonferenz als konkretes Artefakt</td>
+            </tr>
+            <tr>
+              <td>Kein strukturiertes Follow-up</td>
+              <td>Umsetzungscheck nach 6 Wochen</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="recommend-box">
+        Nutzen Sie mpB und Medienzentren für die Basis — Tools, Technik, Grundlagen. Buchen Sie das Audit, wenn Sie eine belastbare, gremientaugliche Entscheidung zur Bewertungspraxis Ihrer Schule brauchen.
+      </div>
+    </div>
+  </section>
+
+  <!-- TERMINE -->
+  <section id="termine">
+    <div class="container">
+      <div class="eyebrow">Verfügbarkeit</div>
+      <h2>Verfügbare Ganztagstermine 2026/27</h2>
+      <p class="lede">Der Pädagogische Tag „Prüfungskultur-Audit" ist ein knappes Gut: Er findet nur an den Tagen statt, an denen ich selbst schulfrei habe. Die folgenden Termine sind real verfügbar — nach Vergabe folgt die nächste Freischaltung erst zum nächsten Schuljahr.</p>
+
+      <div class="table-scroll">
+        <table class="dates-table">
+          <thead>
+            <tr>
+              <th>Datum</th>
+              <th>Anlass</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Beispiel: Do., 14.05.2027</td>
+              <td>Beweglicher Ferientag / Brückentag</td>
+              <td><span class="status-pill">frei — buchbar</span></td>
+            </tr>
+            <tr>
+              <td>Beispiel: Fr., 02.10.2026</td>
+              <td>Ferienrand Herbstferien</td>
+              <td><span class="status-pill">frei — buchbar</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="placeholder-note">[TERMINE AUS BLACKOUT-KALENDER EINTRAGEN] — die obigen zwei Zeilen sind Beispiele für die Struktur, keine echten Termine.</div>
+
+      <p style="margin-top:1.2rem; font-size:0.95rem; color:var(--color-ink-soft);">Ihr Wunschtermin ist nicht gelistet? Fragen Sie über den Terminbuchungslink nach — bei kurzfristigen Tauschtagen kann sich die Liste im Lauf des Schuljahres noch erweitern. Garantiert ist nur, was hier steht.</p>
+    </div>
+  </section>
+
+  <!-- ÜBER MICH -->
+  <section id="ueber-mich" class="section-alt">
+    <div class="container">
+      <div class="eyebrow">Über mich</div>
+      <h2>Praxisreferent, nicht Berufsreferent</h2>
+      <div class="about-grid">
+        <div>
+          <p>Ich bin Praxisreferent für „Prüfen mit KI" — Region [Heimatregion] und niedersachsenweit online. Ich unterrichte selbst, in Vollzeit, an einer niedersächsischen Schule, und teste die Formate, die ich vorstelle, zuerst im eigenen Unterricht. Die Fortbildungsinhalte orientieren sich am KI-Kompetenzraster des NLQ und an der telli-Praxis in Niedersachsen.</p>
+          <p class="footnote">Diese Fortbildung orientiert sich am KI-Kompetenzraster des NLQ. Es handelt sich dabei nicht um eine Zertifizierung oder Empfehlung durch das NLQ.</p>
+        </div>
+        <div class="about-facts">
+          <ul>
+            <li>Unterrichtet aktuell selbst an einer niedersächsischen Schule</li>
+            <li>Fokus: Prüfungs- und Bewertungspraxis unter KI-Bedingungen</li>
+            <li>Orientierung am KI-Kompetenzraster des NLQ, telli-konkret</li>
+            <li>Kontakt ausschließlich über private E-Mail/Telefon</li>
+          </ul>
+        </div>
+      </div>
+
+      <!--
+        REFERENZEN-BLOCK — Platzhalter, NICHT vor Q2 2027 aktivieren.
+        Erst ab dann: nüchterne Faktenliste externer Auftritte
+        ("Referent bei: VISION SCHULE 2026, Veranstaltung des KLBS ...")
+        plus schriftlich freigegebene Testimonials ausschließlich externer Piloten.
+        Keine Fotos ohne Einzeleinwilligung. Keine eigene Schule als Referenz.
+
+        <div id="referenzen" style="margin-top:2rem;">
+          <h3>Referenzen</h3>
+          <p>[AB Q2 2027: externe Pilotschulen, Testimonials, Fachberater-Statements einfügen]</p>
+        </div>
+      -->
+    </div>
+  </section>
+
+  <!-- BUCHUNG -->
+  <section id="buchen">
+    <div class="container">
+      <div class="eyebrow">Erstgespräch</div>
+      <h2>Termin buchen</h2>
+      <p class="lede">Ein Erstgespräch dauert 20–30 Minuten und klärt Anlass, Format und Terminfenster. Buchen Sie direkt einen der festen Slots — kein Telefon-Tag nötig.</p>
+
+      <div class="booking-grid">
+        <div class="slot-card">
+          <div class="day">Mittwoch</div>
+          <div class="time">13:30 Uhr</div>
+        </div>
+        <div class="slot-card">
+          <div class="day">Donnerstag</div>
+          <div class="time">16:00 Uhr</div>
+        </div>
+        <div class="slot-card">
+          <div class="day">Freitag</div>
+          <div class="time">14:00 Uhr</div>
+        </div>
+      </div>
+
+      <div style="margin-top:1.8rem;">
+        <a class="btn" href="[BUCHUNGSLINK]">Slot auswählen und buchen</a>
+      </div>
+
+      <div class="callback-box">
+        <strong>Lieber telefonisch?</strong> Sie erreichen mich mittwochs von 13:30 bis 14:30 Uhr im Rückruf-Fenster.
+      </div>
+    </div>
+  </section>
+
+  <!-- FREEBIE -->
+  <section class="section-alt">
+    <div class="container">
+      <div class="eyebrow">Kostenlos</div>
+      <h2>Checkliste für Schulleitungen</h2>
+      <div class="freebie-box">
+        <div>
+          <h3>Checkliste: Pädagogischen Tag zu KI planen</h3>
+          <p class="desc" style="color:var(--color-ink-soft);">Für Schulleitungen in Niedersachsen. Eine kompakte Checkliste für die Planung eines Pädagogischen Tags zum Thema KI: von der Terminfindung über die Freistellungsfrage bis zur Auswahl des passenden Formats.</p>
+        </div>
+        <form aria-label="Checkliste per E-Mail anfordern">
+          <label for="freebie-email">E-Mail-Adresse</label>
+          <input id="freebie-email" type="email" name="email" placeholder="name@schule.de" required>
+          <button class="btn" type="submit">Checkliste anfordern</button>
+          <p class="form-hint">Sie erhalten die Checkliste nach Bestätigung Ihrer Adresse (Double-Opt-in). Details im Datenschutz-Hinweis unten.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREISARGUMENT -->
+  <section class="price-argument">
+    <div class="container">
+      <div class="eyebrow" style="color:#bfe0d8;">Kalkulation für Schulleitungen</div>
+      <h2>Der Referent ist der kleinste Kostenblock</h2>
+      <p class="lede">Ein Pädagogischer Tag bindet das gesamte Kollegium — bei rund 50 Lehrkräften und einem vollen Tag sind das etwa 200 Personenstunden, die investiert werden. Das Referentenhonorar ist dabei der kleinste Kostenblock. Das eigentliche Risiko ist ein Tag, der verpufft, weil er zu allgemein bleibt.</p>
+
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="stat-num">~200 h</div>
+          <div class="stat-label">Personenstunden des Kollegiums an einem Pädagogischen Tag</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">ab 1.200 €</div>
+          <div class="stat-label">Referentenhonorar B-Präsenz — der kleinste Kostenblock</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">1</div>
+          <div class="stat-label">Beschlussvorlage als konkretes Ergebnis statt eines verpuffenden Tages</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="eyebrow">Häufige Fragen</div>
+      <h2>FAQ</h2>
+
+      <div>
+        <details class="faq-item">
+          <summary>Wie wird die Fortbildung aus dem Schulbudget bezahlt?</summary>
+          <p class="faq-answer">Referentenhonorare für Fortbildungsveranstaltungen sind nach § 32 Abs. 4 NSchG aus dem Schulbudget zahlbar. Sie benötigen keine gesonderte Mittelfreigabe außerhalb des regulären Budgets.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Bieten Sie auch Nachmittagsformate an, die nicht den ganzen Unterrichtstag blockieren?</summary>
+          <p class="faq-answer">Ja — die Formate A1 und A2 sind bewusst als Nachmittagsformate (90 Minuten bis 3 Stunden) konzipiert und der häufigste Einstieg. Sie eignen sich für Dienstbesprechungen oder Fachgruppensitzungen, ohne dass Unterricht ausfällt.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Wie hoch ist der Online-Anteil, wenn wir kein Präsenzformat buchen?</summary>
+          <p class="faq-answer">Das Format B-online besteht komplett aus einem nachmittäglichen Halbtag plus zwei Online-Modulen à 90 Minuten und einem Online-Umsetzungscheck. Es liefert das vollständige Audit-Verfahren, ohne einen ganzen Präsenztag zu benötigen — deshalb ist es die Kern-Empfehlung für die meisten Kollegien.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Wie ist der Datenschutz bei der Arbeit mit KI-Tools im Termin geregelt?</summary>
+          <p class="faq-answer">Alle Formate folgen einer festen Demo-Architektur: telli dient als Erst-Demo. US-amerikanische Tools (z. B. ChatGPT) werden ausschließlich über meinen eigenen Referenten-Account per Beamer gezeigt — Teilnehmende benötigen keinen eigenen Account. Es werden ausschließlich synthetische (erfundene) Schülerdaten verwendet, niemals echte Schülerarbeiten oder -daten.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Wie heißt die Leistung im Vertrag — ist das eine Beratung?</summary>
+          <p class="faq-answer">Nein. Vertraglich und auf der Rechnung wird die Leistung als „Fortbildungsveranstaltung (Vortrags- und Lehrtätigkeit)" bezeichnet. Das Audit-Verfahren ist die inhaltliche Struktur der Fortbildung, keine gesonderte Beratungs- oder Prozessbegleitungsleistung.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Können wir auch nur einen Teil des Audits buchen, z. B. nur die Fortbildung ohne Beschlussvorlage?</summary>
+          <p class="faq-answer">Die Formate A1 und A2 sind als eigenständige Fortbildungen ohne das volle Audit-Verfahren buchbar. Die Beschlussvorlage für die Gesamtkonferenz und der Umsetzungscheck sind Bestandteil der Formate B-online und B-Präsenz.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Was passiert, wenn unser Wunschtermin für den Pädagogischen Tag nicht in der Terminliste steht?</summary>
+          <p class="faq-answer">Der Pädagogische Tag in Präsenz ist auf wenige, real verfügbare Tage im Schuljahr begrenzt (siehe Terminliste oben). Ist Ihr Wunschtermin nicht gelistet, fragen Sie über den Buchungslink nach — oder weichen Sie auf das Format B-online aus, das nachmittags/abends flexibel verfügbar ist.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATENSCHUTZ HINWEIS -->
+  <section class="section-alt">
+    <div class="container">
+      <div class="eyebrow">Datenschutz</div>
+      <h2>Hinweis zur E-Mail-Anmeldung</h2>
+      <p class="lede">Kein Ersatz für eine vollständige Datenschutzerklärung — diese finden Sie unter [DATENSCHUTZ-LINK].</p>
+      <div class="privacy-box">
+        <ul>
+          <li>Ihre E-Mail-Adresse wird ausschließlich zum Versand der angeforderten Inhalte (Checkliste, ggf. weitere Ausgaben) genutzt.</li>
+          <li>Der Versand erfolgt im Double-Opt-in-Verfahren: Sie erhalten zunächst eine Bestätigungs-Mail und müssen die Anmeldung aktiv bestätigen.</li>
+          <li>Eine Weitergabe an Dritte findet nicht statt.</li>
+          <li>Sie können die Zusendung jederzeit über den Abmeldelink am Ende jeder E-Mail beenden.</li>
+          <li>Details zu Speicherdauer, Auftragsverarbeitung und Ihren Rechten (Auskunft, Löschung, Widerspruch) finden Sie in der vollständigen Datenschutzerklärung: <a href="[DATENSCHUTZ-LINK]">[DATENSCHUTZ-LINK]</a>.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-brand">Michael Schippers</div>
+      <p style="color:#a9b3b1; max-width:28em;">Praxisreferent für Prüfen mit KI — Region [Heimatregion] und niedersachsenweit online.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#formate">Formate</a>
+      <a href="#audit">Das Audit</a>
+      <a href="#termine">Termine</a>
+      <a href="#buchen">Erstgespräch buchen</a>
+    </div>
+    <div class="footer-links">
+      <a href="[IMPRESSUM-LINK]">Impressum</a>
+      <a href="[DATENSCHUTZ-LINK]">Datenschutz</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    © [Jahr] Michael Schippers
+  </div>
+</footer>
