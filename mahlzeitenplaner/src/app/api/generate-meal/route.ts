@@ -13,25 +13,46 @@ interface RequestBody {
     avoidIngredients: string;
   };
   avoidTitles: string[];
+  familyMembers?: { name: string; notes: string }[];
+  likedMeals?: string[];
+  dislikedMeals?: string[];
 }
 
 const MODEL = "claude-haiku-4-5";
 
 function buildPrompt(body: RequestBody): string {
-  const { dayLabel, preferences, avoidTitles } = body;
+  const { dayLabel, preferences, avoidTitles, familyMembers, likedMeals, dislikedMeals } = body;
 
   const avoidText = avoidTitles.length
     ? `Vermeide diese Gerichte, sie sind diese Woche bereits eingeplant: ${avoidTitles.join(", ")}.`
     : "";
 
-  return `Du bist ein Ernährungsassistent für die private Essensplanung. Suche im Web nach einer aktuellen, gut bewerteten Rezeptidee für die Hauptmahlzeit am ${dayLabel}.
+  const familyText =
+    familyMembers && familyMembers.length > 0
+      ? `\nVorlieben der Familienmitglieder (wichtig, unbedingt berücksichtigen):\n${familyMembers
+          .filter((m) => m.notes.trim())
+          .map((m) => `- ${m.name}: ${m.notes.trim()}`)
+          .join("\n")}\n`
+      : "";
+
+  const likedText =
+    likedMeals && likedMeals.length > 0
+      ? `\nDiese Gerichte kamen bei der Familie in der Vergangenheit gut an — gerne etwas Ähnliches (Zutaten, Stil) vorschlagen: ${likedMeals.join(", ")}.`
+      : "";
+
+  const dislikedText =
+    dislikedMeals && dislikedMeals.length > 0
+      ? `\nDiese Gerichte kamen nicht gut an — vermeide ähnliche Gerichte: ${dislikedMeals.join(", ")}.`
+      : "";
+
+  return `Du bist ein Ernährungsassistent für die private Essensplanung einer Familie. Suche im Web nach einer aktuellen, gut bewerteten Rezeptidee für die Hauptmahlzeit am ${dayLabel}.
 
 Vorgaben:
 - Portionen: ${preferences.servings}
 - Ernährungsform: ${preferences.dietary || "keine Einschränkungen"}
 - Küche / Stil: ${preferences.cuisine || "keine Präferenz"}
 - Zutaten vermeiden: ${preferences.avoidIngredients || "keine"}
-${avoidText}
+${avoidText}${familyText}${likedText}${dislikedText}
 
 Nutze die Websuche, um ein konkretes, existierendes Rezept von einer echten Rezeptseite zu finden (keine Erfindung). Antworte danach AUSSCHLIESSLICH mit einem einzigen JSON-Objekt — kein Markdown, kein Codeblock, kein einleitender oder abschließender Text — in genau diesem Format:
 

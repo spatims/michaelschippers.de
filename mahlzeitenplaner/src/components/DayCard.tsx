@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Day, MainMeal } from "@/lib/types";
+import { Day, MainMeal, Rating } from "@/lib/types";
 
 interface DayCardProps {
   day: Day;
@@ -11,6 +11,7 @@ interface DayCardProps {
   onGenerate: () => void;
   onClear: () => void;
   onManualSave: (title: string) => void;
+  onRate: (rating: Rating) => void;
 }
 
 export default function DayCard({
@@ -21,6 +22,7 @@ export default function DayCard({
   onGenerate,
   onClear,
   onManualSave,
+  onRate,
 }: DayCardProps) {
   const [editing, setEditing] = useState(false);
   const [manualTitle, setManualTitle] = useState("");
@@ -159,10 +161,38 @@ export default function DayCard({
             </div>
           )}
 
+          <div className="mt-1 flex items-center gap-3">
+            <span className="text-xs text-black/40 dark:text-white/40">
+              Wie kam&apos;s an?
+            </span>
+            <button
+              onClick={() => onRate("like")}
+              title="Kam gut an"
+              className={`text-lg leading-none transition ${
+                meal.rating === "like"
+                  ? "opacity-100"
+                  : "opacity-40 hover:opacity-80"
+              }`}
+            >
+              👍
+            </button>
+            <button
+              onClick={() => onRate("dislike")}
+              title="Kam nicht gut an"
+              className={`text-lg leading-none transition ${
+                meal.rating === "dislike"
+                  ? "opacity-100"
+                  : "opacity-40 hover:opacity-80"
+              }`}
+            >
+              👎
+            </button>
+          </div>
+
           <button
             onClick={onGenerate}
             disabled={loading}
-            className="mt-2 self-start text-xs font-medium text-black/50 hover:text-emerald-700 disabled:opacity-50 dark:text-white/50 dark:hover:text-emerald-400"
+            className="mt-1 self-start text-xs font-medium text-black/50 hover:text-emerald-700 disabled:opacity-50 dark:text-white/50 dark:hover:text-emerald-400"
           >
             {loading ? "Suche läuft…" : "Neuen Vorschlag holen"}
           </button>

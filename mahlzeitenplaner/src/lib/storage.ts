@@ -1,5 +1,7 @@
 import {
   DEFAULT_PREFERENCES,
+  FamilyMember,
+  MealFeedback,
   Preferences,
   WeeklyPlan,
   emptyPlan,
@@ -8,6 +10,10 @@ import {
 const PLAN_KEY = "mahlzeitenplaner:plan";
 const PREFS_KEY = "mahlzeitenplaner:preferences";
 const API_KEY_STORAGE_KEY = "mahlzeitenplaner:apiKey";
+const FAMILY_KEY = "mahlzeitenplaner:family";
+const FEEDBACK_KEY = "mahlzeitenplaner:feedback";
+
+const MAX_FEEDBACK_ENTRIES = 200;
 
 function isBrowser() {
   return typeof window !== "undefined";
@@ -57,4 +63,43 @@ export function saveApiKey(key: string) {
   } else {
     window.localStorage.removeItem(API_KEY_STORAGE_KEY);
   }
+}
+
+export function loadFamilyMembers(): FamilyMember[] {
+  if (!isBrowser()) return [];
+  try {
+    const raw = window.localStorage.getItem(FAMILY_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+export function saveFamilyMembers(members: FamilyMember[]) {
+  if (!isBrowser()) return;
+  window.localStorage.setItem(FAMILY_KEY, JSON.stringify(members));
+}
+
+export function loadMealFeedback(): MealFeedback[] {
+  if (!isBrowser()) return [];
+  try {
+    const raw = window.localStorage.getItem(FEEDBACK_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+export function addMealFeedback(entry: MealFeedback) {
+  if (!isBrowser()) return;
+  const current = loadMealFeedback();
+  // Replace any earlier feedback for the same dish so the history reflects
+  // the latest verdict per title, then cap the total size.
+  const filtered = current.filter((f) => f.title !== entry.title);
+  const next = [...filtered, entry].slice(-MAX_FEEDBACK_ENTRIES);
+  window.localStorage.setItem(FEEDBACK_KEY, JSON.stringify(next));
 }

@@ -4,27 +4,38 @@ import { useEffect, useState } from "react";
 import DayCard from "@/components/DayCard";
 import SettingsPanel from "@/components/SettingsPanel";
 import {
+  addMealFeedback,
   loadApiKey,
+  loadFamilyMembers,
+  loadMealFeedback,
   loadPlan,
   loadPreferences,
   saveApiKey,
+  saveFamilyMembers,
   savePlan,
   savePreferences,
 } from "@/lib/storage";
 import {
   DAYS,
   DayKey,
+  FamilyMember,
   MainMeal,
+  MealFeedback,
   Preferences,
+  Rating,
   WeeklyPlan,
   emptyPlan,
 } from "@/lib/types";
+
+const MAX_FEEDBACK_HINTS = 15;
 
 export default function Home() {
   const [plan, setPlan] = useState<WeeklyPlan>(emptyPlan());
   const [preferences, setPreferences] = useState<Preferences>(
     loadPreferences(),
   );
+  const [familyMembers, setFamilyMembers] = useState<FamilyMember[]>([]);
+  const [mealFeedback, setMealFeedback] = useState<MealFeedback[]>([]);
   const [apiKey, setApiKey] = useState("");
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [loadingDay, setLoadingDay] = useState<DayKey | null>(null);
@@ -35,6 +46,8 @@ export default function Home() {
   useEffect(() => {
     setPlan(loadPlan());
     setPreferences(loadPreferences());
+    setFamilyMembers(loadFamilyMembers());
+    setMealFeedback(loadMealFeedback());
     setApiKey(loadApiKey());
     setHydrated(true);
   }, []);
@@ -46,6 +59,10 @@ export default function Home() {
   useEffect(() => {
     if (hydrated) savePreferences(preferences);
   }, [preferences, hydrated]);
+
+  useEffect(() => {
+    if (hydrated) saveFamilyMembers(familyMembers);
+  }, [familyMembers, hydrated]);
 
   async function generateMeal(dayKey: DayKey) {
     if (!apiKey) {
@@ -60,6 +77,15 @@ export default function Home() {
       .filter((m): m is MainMeal => !!m)
       .map((m) => m.title);
 
+    const likedMeals = mealFeedback
+      .filter((f) => f.rating === "like")
+      .slice(-MAX_FEEDBACK_HINTS)
+      .map((f) => f.title);
+    const dislikedMeals = mealFeedback
+      .filter((f) => f.rating === "dislike")
+      .slice(-MAX_FEEDBACK_HINTS)
+      .map((f) => f.title);
+
     try {
       const res = await fetch("/api/generate-meal", {
         method: "POST",
@@ -69,6 +95,12 @@ export default function Home() {
           dayLabel: day.label,
           preferences,
           avoidTitles,
+          familyMembers: familyMembers.map((m) => ({
+            name: m.name,
+            notes: m.notes,
+          })),
+          likedMeals,
+          dislikedMeals,
         }),
       });
       const data = await res.json();
@@ -103,6 +135,22 @@ export default function Home() {
   function clearDay(dayKey: DayKey) {
     setPlan((p) => ({ ...p, [dayKey]: null }));
     setErrors((e) => ({ ...e, [dayKey]: null }));
+  }
+
+  function rateMeal(dayKey: DayKey, rating: Rating) {
+    const meal = plan[dayKey];
+    if (!meal) return;
+    setPlan((p) => ({ ...p, [dayKey]: { ...meal, rating } }));
+    const entry: MealFeedback = {
+      title: meal.title,
+      rating,
+      ratedAt: new Date().toISOString(),
+    };
+    addMealFeedback(entry);
+    setMealFeedback((prev) => [
+      ...prev.filter((f) => f.title !== meal.title),
+      entry,
+    ]);
   }
 
   function saveManual(dayKey: DayKey, title: string) {
@@ -181,6 +229,7 @@ export default function Home() {
               onGenerate={() => generateMeal(day.key)}
               onClear={() => clearDay(day.key)}
               onManualSave={(title) => saveManual(day.key, title)}
+              onRate={(rating) => rateMeal(day.key, rating)}
             />
           ))}
         </div>
@@ -208,6 +257,8 @@ export default function Home() {
           }}
           preferences={preferences}
           onPreferencesChange={setPreferences}
+          familyMembers={familyMembers}
+          onFamilyMembersChange={setFamilyMembers}
           onClose={() => setSettingsOpen(false)}
         />
       )}

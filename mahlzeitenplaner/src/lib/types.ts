@@ -20,6 +20,8 @@ export interface Source {
   url: string;
 }
 
+export type Rating = "like" | "dislike";
+
 export interface MainMeal {
   title: string;
   description: string;
@@ -29,6 +31,20 @@ export interface MainMeal {
   sources: Source[];
   generatedAt: string;
   manual?: boolean;
+  rating?: Rating;
+}
+
+export interface FamilyMember {
+  id: string;
+  name: string;
+  notes: string;
+}
+
+export interface MealFeedback {
+  title: string;
+  rating: Rating;
+  note?: string;
+  ratedAt: string;
 }
 
 export type WeeklyPlan = Record<DayKey, MainMeal | null>;
